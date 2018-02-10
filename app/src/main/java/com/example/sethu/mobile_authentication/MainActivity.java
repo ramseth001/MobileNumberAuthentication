@@ -195,5 +195,8 @@ public class MainActivity extends AppCompatActivity {
         //PhoneAuthProvider.getInstance().verifyPhoneNumber("+61415130037", 60, TimeUnit.SECONDS, this, mCallbacks);
     }
 
+    public void onBackPressed(){
+
+    }
 
 }

@@ -30,4 +30,8 @@ public class LoggedInActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void onBackPressed(){
+
+    }
 }
