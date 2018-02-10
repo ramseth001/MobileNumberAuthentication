@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Mobile_Authentication</string>
+    <string name="authenticate">Authenticate</string>
+    <string name="log_out">Log out</string>
+</resources>

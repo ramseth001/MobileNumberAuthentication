@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "930001785744",
+    "firebase_url": "https://mobileauthentication-1.firebaseio.com",
+    "project_id": "mobileauthentication-1",
+    "storage_bucket": "mobileauthentication-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930001785744:android:f50ec8b9f71a15f3",
+        "android_client_info": {
+          "package_name": "com.example.sethu.mobile_authentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930001785744-h817n0rs11ido0mvck1g4i1l8omlk3mb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sethu.mobile_authentication",
+            "certificate_hash": "54a7ee1148763a99193cf70fc687e339c3493e93"
+          }
+        },
+        {
+          "client_id": "930001785744-fmsq50tbo06t196kodh1qi2v8eq263ni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB9Ltbef62iwX---TMxYitbsyeoaLveUo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930001785744-fmsq50tbo06t196kodh1qi2v8eq263ni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
