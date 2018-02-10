@@ -18,9 +18,11 @@ public class LoggedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logged_in);
 
         String user = (String) getIntent().getExtras().get("userObject");
-        Toast.makeText(this, user, Toast.LENGTH_SHORT).show();
+        Boolean userStatus = (Boolean) getIntent().getExtras().get("userStatus");
+        //Toast.makeText(this, user, Toast.LENGTH_SHORT).show();
         TextView textView = (TextView) findViewById(R.id.textView2);
-        textView.setText("Welcome ("+user+")");
+        String welcome = userStatus ? "Welcome New User(": "Welcome Back (";
+        textView.setText(welcome+user+")");
     }
 
     public void logout(View view) {

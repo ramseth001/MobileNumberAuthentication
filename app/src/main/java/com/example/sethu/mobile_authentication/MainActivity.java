@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private String mVerificationId;
+    private Boolean isNew = false;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
 
     EditText mobileNumber;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 mVerificationId = verificationId;
                 mResendToken = token;
 
-                requestVerificationCode(verificationId, mResendToken);
+                requestVerificationCode(mVerificationId, mResendToken);
                 // ...
             }
         };
@@ -138,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            checkingForUserExistence(task);
                             Toast.makeText(MainActivity.this, "Success login", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = task.getResult().getUser();
                             performingSignInProcess(user);
@@ -154,10 +156,16 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    private void checkingForUserExistence(Task<AuthResult> task) {
+        isNew = task.getResult().getAdditionalUserInfo().isNewUser();
+    }
+
     private void performingSignInProcess(FirebaseUser user) {
-        Toast.makeText(this, user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+
+       // Toast.makeText(this, user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoggedInActivity.class);
         intent.putExtra("userObject", user.getPhoneNumber());
+        intent.putExtra("userStatus",isNew);
         startActivity(intent);
     }
 
@@ -169,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             Intent intent = new Intent(this, LoggedInActivity.class);
             intent.putExtra("userObject", temp);
+            intent.putExtra("userStatus", false);
             startActivity(intent);
         } else {
             Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
@@ -177,9 +186,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void verifyNumber(View view) {
-        Toast.makeText(this, "lol", Toast.LENGTH_SHORT).show();
-        // TODO  PhoneAuthProvider.getInstance().verifyPhoneNumber(mobileNumber.getText().toString(),60, TimeUnit.SECONDS,this,mCallbacks);
-        PhoneAuthProvider.getInstance().verifyPhoneNumber("+61415130037", 60, TimeUnit.SECONDS, this, mCallbacks);
+        //Toast.makeText(this, "lol", Toast.LENGTH_SHORT).show();
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(mobileNumber.getText().toString(),60, TimeUnit.SECONDS,this,mCallbacks);
+        //PhoneAuthProvider.getInstance().verifyPhoneNumber("+61415130037", 60, TimeUnit.SECONDS, this, mCallbacks);
     }
 
 
