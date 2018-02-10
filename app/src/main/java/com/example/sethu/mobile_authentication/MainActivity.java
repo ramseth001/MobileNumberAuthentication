@@ -68,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.w(TAG, "onVerificationFailed", e);
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     // Invalid request
                     // ...
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     // ...
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
                 // Show a message and update the UI
@@ -162,10 +164,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void performingSignInProcess(FirebaseUser user) {
 
-       // Toast.makeText(this, user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoggedInActivity.class);
         intent.putExtra("userObject", user.getPhoneNumber());
-        intent.putExtra("userStatus",isNew);
+        intent.putExtra("userStatus", isNew);
         startActivity(intent);
     }
 
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void verifyNumber(View view) {
         //Toast.makeText(this, "lol", Toast.LENGTH_SHORT).show();
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(mobileNumber.getText().toString(),60, TimeUnit.SECONDS,this,mCallbacks);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(mobileNumber.getText().toString(), 60, TimeUnit.SECONDS, this, mCallbacks);
         //PhoneAuthProvider.getInstance().verifyPhoneNumber("+61415130037", 60, TimeUnit.SECONDS, this, mCallbacks);
     }
 
