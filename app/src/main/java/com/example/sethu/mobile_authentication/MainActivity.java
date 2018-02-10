@@ -25,6 +25,8 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
+// source: https://firebase.google.com/docs/auth/android/phone-auth
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "PhoneAuthActivity";
     private FirebaseAuth mAuth;
