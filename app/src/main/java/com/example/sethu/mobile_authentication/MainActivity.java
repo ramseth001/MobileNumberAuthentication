@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        // When the user requests otp, this Callback takes place
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
@@ -103,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method pops up a alert dialog box for mobile number authentication. When the user enters
+     * the verification otp number, this method redirects to a different method for validating.
+     * @param verificationId
+     * @param mResendToken unused attribute. Can be used to resend token (otp)
+     */
     private void requestVerificationCode(final String verificationId, final PhoneAuthProvider.ForceResendingToken mResendToken) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -135,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method decides the next steps after the user enters the verification code.
+     * @param credential Result of user's entered otp and actual otp wrt his login id
+     */
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -160,21 +171,30 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * This method checks whether the user is logging-in for the first time or not.
+     * @param task Authentication result
+     */
     private void checkingForUserExistence(Task<AuthResult> task) {
         isNew = task.getResult().getAdditionalUserInfo().isNewUser();
     }
 
+    /**
+     * After the user's otp gets authenticated, this method redirects user to the logged-in activity.
+     */
     private void performingSignInProcess(FirebaseUser user) {
-
-        // Toast.makeText(this, user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoggedInActivity.class);
         intent.putExtra("userObject", user.getPhoneNumber());
         intent.putExtra("userStatus", isNew);
         startActivity(intent);
     }
 
+    /**
+     * onStart() is a built-in method. It gets called automatically on start of the activity.
+     * In this method, it checks whether the user is already logged-in or now. If logged-in,
+     * the method gets redirected to the logged-in activity
+     */
     public void onStart() {
-
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String temp = (currentUser == null) ? "New SignIn" : currentUser.getPhoneNumber();
@@ -186,17 +206,20 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
         }
-
     }
 
+    /**
+     * When authenticate button is pressed, this method is called.
+     * This method initiates the verification process.
+     */
     public void verifyNumber(View view) {
-        //Toast.makeText(this, "lol", Toast.LENGTH_SHORT).show();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(mobileNumber.getText().toString(), 60, TimeUnit.SECONDS, this, mCallbacks);
-        //PhoneAuthProvider.getInstance().verifyPhoneNumber("+61415130037", 60, TimeUnit.SECONDS, this, mCallbacks);
     }
 
+    /**
+     * Disabling back button
+     */
     public void onBackPressed(){
-
     }
 
 }
